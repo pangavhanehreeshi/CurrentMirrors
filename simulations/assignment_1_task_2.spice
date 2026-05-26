@@ -1,0 +1,36 @@
+** sch_path: /foss/designs/ChipAcharya/xschem/assignment_1_task_2.sch
+**.subckt assignment_1_task_2
+XM1 v_gs v_gs GND GND sg13_lv_nmos w=1u l=0.5u ng=1 m=1
+XM2 net1 v_gs GND GND sg13_lv_nmos w=1u l=0.5u ng=1 m=1
+Vdd v_dd GND 1.5
+I0 v_dd v_gs {I_in}
+Vout v_out GND 1.5
+Viout1 v_out net1 0
+.save i(viout1)
+**** begin user architecture code
+
+
+.temp 27
+.control
+save all
+
+.param I_in = 10u
+
+
+dc Vout 0 1.5 10m
+plot i(Viout1) vs v(v_out)
+op
+show all
+
+show n.xm2.nsg13_lv_nmos
+*show xm2:sg13g2_lv_nmos_ps[gds]
+
+.endc
+
+
+ .lib cornerMOSlv.lib mos_tt
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

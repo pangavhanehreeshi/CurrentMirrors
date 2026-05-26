@@ -1,0 +1,56 @@
+** sch_path: /foss/designs/ChipAcharya/xschem/assignment_1.sch
+**.subckt assignment_1
+I0 v_dd Vout {I_in}
+XM1 Vout Vout GND GND sg13_lv_nmos w=1u l=0.13u ng=1 m=1
+C1 Vout GND 1p m=1
+Vdd v_dd GND 1.5
+**** begin user architecture code
+
+
+.temp 27
+.control
+save all
+.ic v(Vout)=0
+.param I_in = 1u
+
+
+
+tran 0.05u 3u uic
+plot v(Vout)
+
+
+
+
+
+
+
+
+*.temp 27
+*.control
+*option numdgt=4
+*set wr_singlescale
+*set wr_vecnames
+*save all
+*.ic v(Vout)=0
+*.param I_in = 1u
+
+*compose IC_vec start=0 stop=1.8 step=0.3
+
+*foreach icval $&IC_vec
+*    alterparam IC_start = $icval
+*    reset
+
+*    tran 0.05u 3u uic
+*    plot v(Vout)
+*end
+
+
+.endc
+
+
+ .lib cornerMOSlv.lib mos_tt
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
